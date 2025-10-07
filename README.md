@@ -7,6 +7,7 @@ TEAM MEMBERS
 - Katarzyna Skrzynska
 
 REPOSITORY PURPOSE
+
 This repo will store both the website and game files, including code, assets, and documentation.
 
 🌿 Git & GitHub Team Workflow Guide
