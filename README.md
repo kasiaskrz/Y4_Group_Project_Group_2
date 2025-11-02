@@ -128,3 +128,6 @@ git commit -m "added navbar layout"
 git push origin kasia-navbar
 # create pull request on GitHub
 ```
+
+UNITY EDITOR VER. 6000.2.7F2
+
