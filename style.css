@@ -1,0 +1,130 @@
+body {
+  background-color: #000;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+}
+
+.text-cyan {
+  color: #00ffff;
+}
+
+/* Hero section with planet background */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url('planet-bg.jpg') no-repeat center center/cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Add subtle dark overlay for contrast */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  text-shadow: 0 0 15px #ff3b3b, 0 0 30px #ff3b3b44;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.hero .btn-danger {
+  background-color: #e0433f;
+  border: none;
+  box-shadow: 0 0 10px #e0433f77;
+}
+
+.hero .btn-danger:hover {
+  background-color: #ff5757;
+  box-shadow: 0 0 20px #ff5757aa;
+}
+
+.hero .btn-light:hover {
+  box-shadow: 0 0 10px #fff;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+}
+
+.nav-link {
+  color: white !important;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #00ffff !important;
+}
+
+/* Auth Pages (unchanged) */
+.auth-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle, #00131f 0%, #000000 90%);
+}
+
+.auth-container {
+  width: 340px;
+  background: rgba(0, 25, 40, 0.85);
+  border: 1px solid #00ffff33;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00ffff44;
+}
+
+.form-control {
+  background: transparent;
+  border: 1px solid #00ffff44;
+  color: white;
+}
+
+.form-control:focus {
+  background: transparent;
+  color: white;
+  border-color: #00ffff;
+  box-shadow: none;
+}
+
+.btn-danger {
+  background-color: #e0433f;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #ff5757;
+}
+
+.small-link {
+  color: #00ffff;
+  text-decoration: none;
+}
+
+.small-link:hover {
+  text-decoration: underline;
+}
+
+/* About section */
+.about {
+  background: #0a0a12;
+  color: #ddd;
+}
