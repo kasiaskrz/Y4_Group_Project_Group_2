@@ -1,45 +1,69 @@
+html,
+body {
+  min-height: 100%;
+  background: linear-gradient(180deg,
+      #000000 0%,
+      #265054 62%,
+      #3E3F41 82%,
+      #07161C 100%);
+  background-attachment: fixed;
+}
+
+/* hero section */
 .hero {
   position: relative;
   height: 50vh;
   display: flex;
   justify-content: center;
-  align-items: center; /* instead of center */
+  align-items: center;
   flex-direction: column;
   text-align: center;
-  overflow: hidden;
-  padding-top: 10vh; /* adjust this to taste */
+  overflow: visible;
+  padding-top: 10vh;
+  padding-bottom: 3rem;
+  background: transparent;
 }
 
+.hero-text {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-overlay {
+  background: transparent;
+}
 
 .hero-text .header1 {
-    color: #115F64;
-    text-shadow: 0 0 0px #115F64, 0 0 0px #115F64;
-    font-size: clamp(3rem, 6vw, 4rem);
+  color: white;
+  text-shadow: 0 0 0px white, 0 0 0px white;
+  font-size: clamp(2.3rem, 6vw, 4rem);
+  margin-top: 50px;
 }
 
 .hero-text h2 {
-    color: #115F64;
-    font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  margin-bottom: 20px;
+  background: linear-gradient(to bottom, #00faff, #004d52);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-text p.lead {
-  font-size: clamp(0.9rem, 3vw, 1.4rem);
-  letter-spacing: 2px;
-}
-
-
-.hero {
-    background-color: url('planet-bg.jpg') no-repeat center center/cover;
-    background: black;
-    background-image: none;
+  font-size: clamp(0.8rem, 3vw, 1.4rem);
+  letter-spacing: 3px;
+  color: #115F64;
+  font-weight: 500;
 }
 
 .player-input {
   background-color: white;
-  color: #00faff; 
+  color: #00faff;
   border: 2px solid #00faff;
   text-shadow: none;
   border: 2px solid #115F64;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .player-input::placeholder {
@@ -52,10 +76,12 @@
 .search-btn {
   font-family: 'Rajdhani', sans-serif;
   font-weight: bold;
-  background-color: white;
-  color: #115F64;
-  border: 2px solid #115F64;
+  background-color: #115F64;
+  color: white;
+  border: 2px solid white;
   transition: 0.25s ease;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .search-btn:hover {
@@ -66,8 +92,146 @@
 .full-list-btn {
   font-family: 'Rajdhani', sans-serif;
   font-weight: bold;
-  border: 2px solid black;
   color: black;
   background-color: #00b1b4;
+  border: 2px solid black;
 }
 
+/* Leaderboard Table section */
+.leaderboard-section {
+  position: relative;
+  z-index: 0;
+  margin-top: 1rem;
+  background: transparent;
+}
+
+.leaderboard-card {
+  position: relative;
+  background: #0b1c20;
+  border: 1px solid rgba(0, 250, 255, 0.15);
+  border-radius: 18px;
+  box-shadow:
+    0 0 20px rgba(0, 250, 255, 0.08) inset,
+    0 0 30px rgba(0, 250, 255, 0.07);
+}
+
+/* Table base */
+.leaderboard-table {
+  color: #9fdbe0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  background-color: transparent;
+  color: #9fdbe0;
+}
+
+/* Header */
+.leaderboard-table thead th {
+  color: #63d7de;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0, 250, 255, 0.15);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Rows + separators */
+.leaderboard-table tbody tr {
+  border-bottom: 1px solid rgba(0, 250, 255, 0.08);
+}
+
+.leaderboard-table td,
+.leaderboard-table th {
+  padding: 0.8rem 1rem;
+  vertical-align: middle;
+}
+
+/* Rank column */
+.leaderboard-table tbody td:first-child {
+  color: #79e7ee;
+}
+
+/* Player name highlights for top 3 */
+.player-name {
+  font-weight: 700;
+}
+
+.highlight-gold {
+  color: #ffc83d;
+  text-shadow: 0 0 6px rgba(255, 200, 61, 0.6);
+}
+
+.highlight-silver {
+  color: #e6e6e6;
+  text-shadow: 0 0 6px rgba(230, 230, 230, 0.5);
+}
+
+.highlight-orange {
+  color: #ff8c4a;
+  text-shadow: 0 0 6px rgba(255, 140, 74, 0.5);
+}
+
+/* Row hover */
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(0, 255, 255, 0.06);
+}
+
+/* Responsive type scale */
+.leaderboard-table {
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+}
+
+/* Compact on very small screens */
+@media (max-width: 480px) {
+
+  .leaderboard-table td:nth-child(3),
+  .leaderboard-table th:nth-child(3) {
+    /* hide Level column */
+    display: none;
+  }
+}
+
+/* section under table */
+.join-leaderboard {
+  padding: 4rem 1rem;
+}
+
+.cta-top-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.register-cta-btn {
+  padding: 0.7rem 2.5rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  color: white;
+  background-color: #000;
+  border: 1px solid white;
+  transition: all 0.25s ease;
+}
+
+.register-cta-btn:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+  transform: translateY(-2px);
+  background-color: white;
+  color: black;
+}
+
+.cta-bottom-text {
+  margin-top: 2rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: #d2e9ea;
+}
