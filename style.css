@@ -128,3 +128,104 @@ body {
   background: #0a0a12;
   color: #ddd;
 }
+
+/* Footer */
+.site-footer {
+  background: #07161C;
+  color: #9fdbe0;
+  border-top: 1px solid rgba(0, 255, 255, 0.07);
+}
+
+.site-footer .neon-divider {
+  height: 8px;
+  background:
+    radial-gradient(closest-side, rgba(0, 255, 255, 0.55), rgba(0, 255, 255, 0.15) 60%, transparent 70%),
+    linear-gradient(to right, rgba(0, 255, 255, 0.05), rgba(0, 255, 255, 0.35), rgba(0, 255, 255, 0.05));
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Headings */
+.footer-heading {
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 2px;
+  color: #63d7de;
+  margin-bottom: .8rem;
+  font-size: 1.2em;
+}
+
+/* Links list */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li+li {
+  margin-top: .3rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #2cc6cf;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.footer-links a:hover {
+  color: #7ee9ef;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+/* Quote + copyright */
+.footer-quote {
+  color: #cfe6e8;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(.95rem, 1.8vw, 1.15rem);
+  margin: 0 0 .6rem 0;
+}
+
+.footer-copy {
+  font-family: 'Rajdhani', sans-serif;
+  color: #6fb5ba;
+  font-size: .9rem;
+  margin: 0;
+}
+
+
+/* Icon images */
+.footer-socials .social-img-btn img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Hover effect */
+.footer-socials .social-img-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* default: center on mobile */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* desktop: align to the right */
+@media (min-width: 768px) {
+  .footer-socials {
+    justify-content: flex-end;
+  }
+}
+
+/* for small screens */
+@media (max-width: 768px) {
+  .footer-heading {
+    margin-top: .5rem;
+  }
+
+  .footer-socials {
+    text-align: center;
+  }
+}
