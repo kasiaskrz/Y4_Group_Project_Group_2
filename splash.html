@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Station</title>
+
+    <!-- External Splash CSS -->
+    <link rel="stylesheet" href="css/splash.css">
+</head>
+
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-text">
+            <p id="line1"></p>
+            <p id="line2"></p>
+            <p id="line3"></p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden behind splash) -->
+    <main id="main-content" style="visibility:hidden;">
+        <h1 style="text-align:center; margin-top:40vh; color:white; font-family:'Rajdhani',sans-serif;">
+            Welcome to Lost Station
+        </h1>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        const messages = [
+            "Signal found...",
+            "Connection initializing...",
+            "Entering the station..."
+        ];
+
+        function typeLine(el, text, delay) {
+            setTimeout(() => {
+                let i = 0;
+                const timer = setInterval(() => {
+                    el.textContent += text[i];
+                    i++;
+                    if (i === text.length) clearInterval(timer);
+                }, 35);
+            }, delay);
+        }
+
+        window.onload = () => {
+
+            typeLine(document.getElementById("line1"), messages[0], 400);
+            typeLine(document.getElementById("line2"), messages[1], 1300);
+            typeLine(document.getElementById("line3"), messages[2], 2200);
+
+            // Start fade after text plays
+            setTimeout(() => {
+                document.getElementById("splash-screen").classList.add("fade-out");
+            }, 3400);
+
+            // Redirect after fade animation completes
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 4300);
+        };
+    </script>
+</body>
+
+</html>
