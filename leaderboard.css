@@ -6,7 +6,7 @@ body {
       #265054 62%,
       #3E3F41 82%,
       #07161C 100%);
-  background-attachment:scroll;
+  background-attachment: scroll;
 }
 
 /* hero section */
@@ -243,23 +243,23 @@ body {
   color: #d2e9ea;
 }
 
-/* footer */
-.site-footer{
-  background: #07161C; 
+/* Footer */
+.site-footer {
+  background: #07161C;
   color: #9fdbe0;
-  border-top: 1px solid rgba(0,255,255,0.07);
+  border-top: 1px solid rgba(0, 255, 255, 0.07);
 }
 
-.site-footer .neon-divider{
+.site-footer .neon-divider {
   height: 8px;
   background:
-    radial-gradient(closest-side, rgba(0,255,255,0.55), rgba(0,255,255,0.15) 60%, transparent 70%),
-    linear-gradient(to right, rgba(0,255,255,0.05), rgba(0,255,255,0.35), rgba(0,255,255,0.05));
-  box-shadow: 0 0 18px rgba(0,255,255,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    radial-gradient(closest-side, rgba(0, 255, 255, 0.55), rgba(0, 255, 255, 0.15) 60%, transparent 70%),
+    linear-gradient(to right, rgba(0, 255, 255, 0.05), rgba(0, 255, 255, 0.35), rgba(0, 255, 255, 0.05));
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Headings */
-.footer-heading{
+.footer-heading {
   font-family: 'Rajdhani', sans-serif;
   letter-spacing: 2px;
   color: #63d7de;
@@ -268,85 +268,53 @@ body {
 }
 
 /* Links list */
-.footer-links{
+.footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.footer-links li + li{ margin-top: .3rem; }
-.footer-links a{
+.footer-links li+li {
+  margin-top: .3rem;
+}
+
+.footer-links a {
   text-decoration: none;
   color: #2cc6cf;
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
 }
-.footer-links a:hover{
+
+.footer-links a:hover {
   color: #7ee9ef;
-  text-shadow: 0 0 8px rgba(0,255,255,0.5);
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
 }
 
 /* Quote + copyright */
-.footer-quote{
+.footer-quote {
   color: #cfe6e8;
   font-family: 'Rajdhani', sans-serif;
   font-size: clamp(.95rem, 1.8vw, 1.15rem);
   margin: 0 0 .6rem 0;
 }
 
-.footer-copy{
+.footer-copy {
   font-family: 'Rajdhani', sans-serif;
   color: #6fb5ba;
   font-size: .9rem;
   margin: 0;
 }
 
-/* Social buttons */
-.footer-socials .social-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  margin-left: .4rem;
-  border-radius: 50%;
-  border: 2px solid #19c9d2;
-  color: #19c9d2;
-  background: rgba(0,255,255,0.06);
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
-}
-
-.footer-socials .social-btn:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 0 12px rgba(0,255,255,.45);
-  background: rgba(0,255,255,0.12);
-  color: #7ee9ef;
-}
-
-/* for small screens */
-@media (max-width: 768px){
-  .footer-heading{ margin-top: .5rem; }
-  .footer-socials{ text-align: center; }
-}
-
-/* Social container — align icons in a row */
-.footer-socials {
-  display: flex;
-  justify-content: center; /* center on mobile */
-  gap: 10px; 
-}
-
-
 
 /* Icon images */
 .footer-socials .social-img-btn img {
-  width: 32px;   /* scale icon inside */
+  width: 32px;
   height: 32px;
   object-fit: contain;
 }
 
-/* Hover glow effect */
+/* Hover effect */
 .footer-socials .social-img-btn:hover {
   transform: translateY(-2px);
 }
@@ -365,3 +333,13 @@ body {
   }
 }
 
+/* for small screens */
+@media (max-width: 768px) {
+  .footer-heading {
+    margin-top: .5rem;
+  }
+
+  .footer-socials {
+    text-align: center;
+  }
+}
