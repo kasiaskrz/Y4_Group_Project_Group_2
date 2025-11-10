@@ -244,14 +244,12 @@ body {
 }
 
 /* footer */
-/* Footer base */
 .site-footer{
-  background: #07161C; /* deep teal-black */
+  background: #07161C; 
   color: #9fdbe0;
   border-top: 1px solid rgba(0,255,255,0.07);
 }
 
-/* Thin glowing line near the top */
 .site-footer .neon-divider{
   height: 8px;
   background:
@@ -265,7 +263,8 @@ body {
   font-family: 'Rajdhani', sans-serif;
   letter-spacing: 2px;
   color: #63d7de;
-  margin-bottom: .5rem;
+  margin-bottom: .8rem;
+  font-size: 1.2em;
 }
 
 /* Links list */
@@ -274,6 +273,7 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .footer-links li + li{ margin-top: .3rem; }
 .footer-links a{
   text-decoration: none;
@@ -287,20 +287,22 @@ body {
   text-shadow: 0 0 8px rgba(0,255,255,0.5);
 }
 
-/* Center quote + copyright */
+/* Quote + copyright */
 .footer-quote{
   color: #cfe6e8;
   font-family: 'Rajdhani', sans-serif;
   font-size: clamp(.95rem, 1.8vw, 1.15rem);
   margin: 0 0 .6rem 0;
 }
+
 .footer-copy{
+  font-family: 'Rajdhani', sans-serif;
   color: #6fb5ba;
   font-size: .9rem;
   margin: 0;
 }
 
-/* Social buttons (round, cyan outline) */
+/* Social buttons */
 .footer-socials .social-btn{
   display: inline-flex;
   align-items: center;
@@ -314,6 +316,7 @@ body {
   background: rgba(0,255,255,0.06);
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
 }
+
 .footer-socials .social-btn:hover{
   transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(0,255,255,.45);
@@ -321,7 +324,7 @@ body {
   color: #7ee9ef;
 }
 
-/* Spacing tweaks for small screens */
+/* for small screens */
 @media (max-width: 768px){
   .footer-heading{ margin-top: .5rem; }
   .footer-socials{ text-align: center; }
@@ -331,30 +334,34 @@ body {
 .footer-socials {
   display: flex;
   justify-content: center; /* center on mobile */
-  gap: 10px; /* nice spacing */
+  gap: 10px; 
 }
 
-/* Round neon icon buttons */
-.footer-socials .social-img-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;   /* smaller size */
-  height: 32px;
-  transition: 0.2s ease;
-  overflow: hidden;
-}
+
 
 /* Icon images */
 .footer-socials .social-img-btn img {
   width: 32px;   /* scale icon inside */
   height: 32px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(1877%) hue-rotate(148deg) brightness(95%) contrast(91%);
 }
 
 /* Hover glow effect */
 .footer-socials .social-img-btn:hover {
   transform: translateY(-2px);
+}
+
+/* default: center on mobile */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* desktop: align to the right */
+@media (min-width: 768px) {
+  .footer-socials {
+    justify-content: flex-end;
+  }
 }
 
