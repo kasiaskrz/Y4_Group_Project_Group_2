@@ -6,13 +6,13 @@ body {
       #265054 62%,
       #3E3F41 82%,
       #07161C 100%);
-  background-attachment: fixed;
+  background-attachment:scroll;
 }
 
 /* hero section */
 .hero {
   position: relative;
-  height: 50vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,6 +22,13 @@ body {
   padding-top: 10vh;
   padding-bottom: 3rem;
   background: transparent;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: none;
 }
 
 .hero-text {
