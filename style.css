@@ -229,3 +229,52 @@ body {
     text-align: center;
   }
 }
+
+/* -------------------- CONTACT PAGE -------------------- */
+.contact-section {
+  padding-top: 140px;
+  text-align: center;
+}
+
+.contact-form {
+  width: 550px;
+  max-width: 100%;
+  background: rgba(0, 35, 55, 0.85); /* dark enough to read */
+  padding: 35px;
+  border-radius: 14px;
+  border: 2px solid #00ffff88;
+  box-shadow: 0 0 35px #00ffff77;
+  backdrop-filter: blur(6px);
+  transition: 0.3s;
+  color: #ffffff !important; /* Ensure text inside is white */
+}
+
+.contact-form:hover {
+  box-shadow: 0 0 55px #00ffffaa;
+  transform: scale(1.01);
+}
+
+/* Input + Textarea */
+.contact-form .form-control {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid #00ffff66;
+  color: #ffffff !important; /* input text white */
+  font-weight: 500;
+}
+
+.contact-form .form-control:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff88;
+}
+
+/* Placeholder text — make lighter + readable */
+.contact-form .form-control::placeholder {
+  color: #bffcff;
+  opacity: 1;
+}
+
+/* Button */
+.contact-form button {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
