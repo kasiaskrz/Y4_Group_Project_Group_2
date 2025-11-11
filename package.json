@@ -1,0 +1,9 @@
+{
+  "name": "lostorbit",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.46.0"
+  }
+}
