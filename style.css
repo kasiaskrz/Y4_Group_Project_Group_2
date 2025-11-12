@@ -287,18 +287,14 @@ body {
   background: radial-gradient(1200px 600px at 20% 0%, rgba(255, 113, 62, 0.08), transparent 60%), #0b0b0d;
 }
 
-
-/* left image behaves like a tall poster */
 .about-image {
   background: radial-gradient(300px 200px at 0% 0%, rgba(0, 0, 0, 0.5), transparent 70%);
 }
 
 .about-image img {
   max-height: 720px;
-  /* keeps proportions similar to screenshot on large screens */
 }
 
-/* right panel */
 .about-content {
   color: #cfd3dc;
 }
@@ -313,23 +309,19 @@ body {
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* orange chips like buttons with outline + glow */
 .about-chip {
   display: inline-block;
   padding: 10px 18px;
   border-radius: 8px;
   border: 3px solid #C13A2C;
   background: rgba(0, 0, 0, 0.35);
-  /* dark fill */
   color: #fff;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow:
     0 0 0 2px rgba(255, 106, 46, 0.15) inset,
-    /* subtle inner ring */
     0 4px 18px rgba(255, 106, 46, 0.25);
-  /* outer glow */
   transition: transform .15s ease, box-shadow .2s ease;
 }
 
@@ -340,7 +332,6 @@ body {
     0 8px 26px rgba(255, 106, 46, 0.35);
 }
 
-/* paragraph styles to mimic the blocky layout */
 .about-lead {
   color: #e4e7ee;
   font-weight: 600;
@@ -351,7 +342,6 @@ body {
   line-height: 1.65;
 }
 
-/* responsive tweaks */
 @media (max-width: 991.98px) {
   .about-image img {
     max-height: 420px;
