@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lost Orbit</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black px-4 fixed-top">
+    <a class="navbar-brand fw-bold text-light" href="home.html">Lost Orbit</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="home.html">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="media.html">MEDIA</a></li>
+        <li class="nav-item"><a class="nav-link" href="leaderboard.html">LEADERBOARD</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+      </ul>
+
+      <div class="d-flex">
+        <a href="login.html" class="btn btn-outline-light me-2">LOG IN</a>
+        <a href="register.html" class="btn btn-outline-light">REGISTER</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero d-flex flex-column justify-content-center align-items-center text-center">
+    <div class="hero-overlay"></div>
+    <div class="hero-text position-relative">
+      <h1 class="display-4 fw-bold text-white">Lost Orbit</h1>
+      <p class="lead text-light">The station has awakened. Will you?</p>
+      <div class="mt-4">
+        <a href="#" class="btn btn-danger me-3 px-4">PLAY</a>
+        <a href="#" class="btn btn-light px-4">LEARN MORE</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT THE GAME -->
+<section id="about-game" class="py-5 py-lg-6">
+  <div class="container-xxl">
+    <div class="about-frame rounded-4 overflow-hidden">
+      <div class="row g-0 align-items-stretch">
+        <!-- Left: isometric room image -->
+        <div class="col-12 col-lg-4 about-image d-flex">
+          <img
+            src="img/about/room-isometric.jpg"
+            alt="Isometric research station room"
+            class="img-fluid w-100 object-fit-cover"
+          />
+        </div>
+
+        <!-- Right: content -->
+        <div class="col-12 col-lg-8 p-4 p-md-5 about-content">
+          <h2 class="about-title mb-4">ABOUT THE GAME</h2>
+
+          <!-- Tags -->
+          <div class="about-tags mb-4 d-flex flex-wrap gap-3">
+            <span class="about-chip">SCIENCE-FICTION</span>
+            <span class="about-chip">MYSTERY</span>
+            <span class="about-chip">2D PERSPECTIVE</span>
+            <span class="about-chip">PUZZLE-SOLVING</span>
+          </div>
+
+          <!-- Paragraphs -->
+          <p class="about-lead">
+            In the silent orbit of a dead planet, a forgotten research station stirs back to life.
+            An unknown signal has reactivated its systems, awakening the lights, the doors — and perhaps
+            something else within.
+          </p>
+
+          <p>
+            The player, responding to this mysterious signal, must navigate the desolate halls, uncover
+            the truth behind the station's fall, and survive its many hidden dangers.
+          </p>
+
+          <p>
+            Lost Orbit blends environmental storytelling with puzzle-driven progression. Explore interconnected
+            rooms, reroute power, decode terminals, and unlock sealed sectors while managing limited time windows.
+          </p>
+
+          <p class="mb-0">
+            Every corridor, log, and machine is a clue. The station itself is the puzzle — an evolving labyrinth
+            that opens as you master its systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="site-footer mt-5">
+    <div class="neon-divider"></div>
+
+    <div class="container py-4 py-md-5">
+      <div class="row align-items-start gy-4">
+        <!-- Left: Quick links -->
+        <div class="col-12 col-md-4">
+          <h6 class="footer-heading">QUICK LINKS</h6>
+          <ul class="footer-links">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="media.html">MEDIA</a></li>
+            <li><a href="leaderboard.html">LEADERBOARD</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+          </ul>
+        </div>
+
+        <!-- Center: Quote + copyright -->
+        <div class="col-12 col-md-4 text-center">
+          <p class="footer-quote">“In the silence, something awakens…”</p>
+          <p class="footer-copy">2025 LostOrbit. All Rights Reserved.</p>
+        </div>
+
+        <!-- Right: Socials -->
+        <div class="col-12 col-md-4 text-md-end">
+          <h6 class="footer-heading">CONNECT</h6>
+          <div class="footer-socials">
+            <a href="#" class="social-img-btn" aria-label="Discord">
+              <img src="img/socials_icons/discord.png" alt="Discord">
+            </a>
+
+            <a href="#" class="social-img-btn" aria-label="Instagram">
+              <img src="img/socials_icons/instagram.png" alt="Instagram">
+            </a>
+
+            <a href="#" class="social-img-btn" aria-label="X">
+              <img src="img/socials_icons/twitter.png" alt="X logo">
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    await fetch("/api/add-note", { 
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: "Hello from Vercel" }),
+    });
+  </script>
+
+</body>
+
+
+</html>

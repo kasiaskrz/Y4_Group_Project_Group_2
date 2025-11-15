@@ -28,6 +28,6 @@ const messages = [
 
             // Redirect after fade animation completes
             setTimeout(() => {
-                window.location.href = "index.html";
+                window.location.href = "home.html";
             }, 4300);
         };
