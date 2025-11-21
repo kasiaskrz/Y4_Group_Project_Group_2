@@ -4,30 +4,18 @@ const supabase = window.supabase.createClient(
 );
 
 // --- REGISTER ---
-async function registerUser(email, password, username) {
+async function registerUser(email, password) {
     const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password
+        email,
+        password
     });
 
     if (error) {
         return { success: false, message: error.message };
     }
 
-    const userId = data.user.id;
-
-    // Insert username into profiles table
-    const { error: profileError } = await supabase
-        .from("profiles")
-        .insert([{ id: userId, username: username }]);
-
-    if (profileError) {
-        return { success: false, message: profileError.message };
-    }
-
     return { success: true };
 }
-
 
 
 // --- LOGIN ---
@@ -70,8 +58,11 @@ if (registerForm) {
             return; // Stop here
         }
 
-        // 2️⃣ Create account
-        const result = await registerUser(email, password, username);
+        // Save username temporarily until user logs in
+        localStorage.setItem("pending_username", username);
+
+        // Create user (email + password)
+        const result = await registerUser(email, password);
 
         if (!result.success) {
             // email-related error from Supabase
@@ -101,9 +92,32 @@ if (loginForm) {
         console.log(message);
 
         if (message === "Logged in!") {
+
+            const { data: { user } } = await supabase.auth.getUser();
+
+            // Check if profile exists
+            const { data: existingProfile, error: profileCheckError } = await supabase
+                .from("profiles")
+                .select("id")
+                .eq("id", user.id)
+                .maybeSingle();
+
+            if (!existingProfile) {
+                // Insert the profile now
+                const username = localStorage.getItem("pending_username");
+
+                if (username) {
+                    await supabase
+                        .from("profiles")
+                        .insert([{ id: user.id, username: username }]);
+
+                    // Clear the saved username so it's not reused
+                    localStorage.removeItem("pending_username");
+                }
+            }
+
             window.location.href = "home.html";
         }
-
     });
 }
 
