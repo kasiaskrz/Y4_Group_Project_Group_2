@@ -110,7 +110,12 @@ if (loginForm) {
                 if (username) {
                     await supabase
                         .from("profiles")
-                        .insert([{ id: user.id, username: username }]);
+                        .insert([{
+                            id: user.id,
+                            username: username,
+                            email: user.email
+                        }]);
+
 
                     // Clear the saved username so it's not reused
                     localStorage.removeItem("pending_username");
