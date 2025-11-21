@@ -16,8 +16,11 @@
     <p class="text-light small mb-3">Gain access to the station network</p>
 
     <form id="registerForm">
-      <input id="reg-username" type="text" class="form-control mb-3" placeholder="Username" required>
-      <input id="reg-email" type="email" class="form-control mb-3" placeholder="Email" required>
+      <input id="reg-username" type="text" class="form-control mb-1" placeholder="Username" required>
+      <small id="username-error" class="text-danger" style="display:none;"></small>
+      <input id="reg-email" type="email" class="form-control mb-1" placeholder="Email" required>
+      <small id="email-info" class="text-light">A confirmation link will be sent to this email.</small>
+      <small id="email-error" class="text-danger" style="display:none;"></small>
       <input id="reg-password" type="password" class="form-control mb-3" placeholder="Password" required>
       <button type="submit" class="btn btn-danger w-100">REGISTER</button>
     </form>

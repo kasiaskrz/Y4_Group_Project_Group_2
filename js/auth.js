@@ -4,19 +4,31 @@ const supabase = window.supabase.createClient(
 );
 
 // --- REGISTER ---
-async function registerUser(email, password) {
+async function registerUser(email, password, username) {
     const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password
     });
 
     if (error) {
-        console.log(error.message);
-        return error.message;
+        return { success: false, message: error.message };
     }
 
-    return "Check your email to confirm your account!";
+    const userId = data.user.id;
+
+    // Insert username into profiles table
+    const { error: profileError } = await supabase
+        .from("profiles")
+        .insert([{ id: userId, username: username }]);
+
+    if (profileError) {
+        return { success: false, message: profileError.message };
+    }
+
+    return { success: true };
 }
+
+
 
 // --- LOGIN ---
 async function loginUser(email, password) {
@@ -34,23 +46,47 @@ async function loginUser(email, password) {
 }
 
 // --- HANDLE REGISTER FORM ---
-const registerForm = document.getElementById("registerForm");
 if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        const username = document.getElementById("reg-username").value;
         const email = document.getElementById("reg-email").value;
         const password = document.getElementById("reg-password").value;
 
-        const message = await registerUser(email, password);
-        console.log(message);
+        const emailError = document.getElementById("email-error");
+        const usernameError = document.getElementById("username-error");
 
-        if (message === "Logged in!") {
-            window.location.href = "home.html";
+        // Clear old errors
+        emailError.style.display = "none";
+        emailError.textContent = "";
+        usernameError.style.display = "none";
+        usernameError.textContent = "";
+
+        // 1️⃣ Check if username is taken
+        if (await isUsernameTaken(username)) {
+            usernameError.textContent = "This username is already taken.";
+            usernameError.style.display = "block";
+            return; // Stop here
         }
 
+        // 2️⃣ Create account
+        const result = await registerUser(email, password, username);
+
+        if (!result.success) {
+            // email-related error from Supabase
+            emailError.textContent = result.message;
+            emailError.style.display = "block";
+            return;
+        }
+
+        // 3️⃣ Success!
+        alert("We sent you a confirmation email. Please verify to log in.");
+        window.location.href = "login.html";
     });
 }
+
+
 
 // --- HANDLE LOGIN FORM ---
 const loginForm = document.getElementById("loginForm");
@@ -69,4 +105,19 @@ if (loginForm) {
         }
 
     });
+}
+
+async function isUsernameTaken(username) {
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("username", username)
+        .maybeSingle();
+
+    if (error) {
+        console.log(error.message);
+        return false; // fail-safe: don't block registration
+    }
+
+    return data !== null; // if data exists → taken
 }
