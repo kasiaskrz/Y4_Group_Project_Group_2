@@ -75,8 +75,11 @@ if (registerForm) {
             return;
         }
 
-        alert("We sent you a confirmation email. Please verify to log in.");
-        window.location.href = "login.html";
+        if (result.success) {
+            alert("We sent you a confirmation email.");
+            window.location.href = "login.html";
+        }
+
     });
 }
 
