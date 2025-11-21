@@ -3,7 +3,9 @@ const supabase = window.supabase.createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dXlmZ3Z0YXpxeXN4bm12bmt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MzQyMzAsImV4cCI6MjA3ODExMDIzMH0.qOpekOPmKweh29QgtQUCGM-fAXPJZ58R0ccSjMET-rM"
 );
 
+// --- REGISTER FORM ---
 const registerForm = document.getElementById("registerForm");
+
 // --- REGISTER ---
 async function registerUser(email, password) {
     const { data, error } = await supabase.auth.signUp({
@@ -12,6 +14,7 @@ async function registerUser(email, password) {
     });
 
     if (error) {
+        console.log("SIGNUP ERROR:", error);
         return { success: false, message: error.message };
     }
 
@@ -22,17 +25,18 @@ async function registerUser(email, password) {
 // --- LOGIN ---
 async function loginUser(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
+        email,
+        password
     });
 
     if (error) {
-        console.log(error.message);
+        console.log("LOGIN ERROR:", error);
         return error.message;
     }
 
     return "Logged in!";
 }
+
 
 // --- HANDLE REGISTER FORM ---
 if (registerForm) {
@@ -40,7 +44,7 @@ if (registerForm) {
         e.preventDefault();
 
         const username = document.getElementById("reg-username").value;
-        const email = document.getElementById("reg-email").value;
+        const email = document.getElementById("reg-email").value.trim().toLowerCase();
         const password = document.getElementById("reg-password").value;
 
         const emailError = document.getElementById("email-error");
@@ -52,32 +56,29 @@ if (registerForm) {
         usernameError.style.display = "none";
         usernameError.textContent = "";
 
-        // 1️⃣ Check if username is taken
+        // Check if username exists
         if (await isUsernameTaken(username)) {
             usernameError.textContent = "This username is already taken.";
             usernameError.style.display = "block";
-            return; // Stop here
+            return;
         }
 
-        // Save username temporarily until user logs in
+        // Save username until login
         localStorage.setItem("pending_username", username);
 
-        // Create user (email + password)
+        // Register the user
         const result = await registerUser(email, password);
 
         if (!result.success) {
-            // email-related error from Supabase
             emailError.textContent = result.message;
             emailError.style.display = "block";
             return;
         }
 
-        // 3️⃣ Success!
         alert("We sent you a confirmation email. Please verify to log in.");
         window.location.href = "login.html";
     });
 }
-
 
 
 // --- HANDLE LOGIN FORM ---
@@ -90,34 +91,52 @@ if (loginForm) {
         const password = document.getElementById("login-password").value;
 
         const message = await loginUser(email, password);
-        console.log(message);
+        console.log("LOGIN MESSAGE:", message);
 
         if (message === "Logged in!") {
 
-            const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user }, error: userError } = await supabase.auth.getUser();
+            if (userError || !user) {
+                console.log("Error getting user after login:", userError);
+                return;
+            }
 
-            // Check if profile exists
+            console.log("USER OBJECT:", user);
+
+            // Check if profile already exists
             const { data: existingProfile, error: profileCheckError } = await supabase
                 .from("profiles")
-                .select("id")
+                .select("*")
                 .eq("id", user.id)
                 .maybeSingle();
 
+            if (profileCheckError) console.log("PROFILE CHECK ERROR:", profileCheckError);
+            console.log("EXISTING PROFILE:", existingProfile);
+
+            // Insert only if no profile exists
             if (!existingProfile) {
-                // Insert the profile now
-                const username = localStorage.getItem("pending_username");
 
-                if (username) {
-                    await supabase
-                        .from("profiles")
-                        .insert([{
-                            id: user.id,
-                            username: username,
-                            email: user.email
-                        }]);
+                let username = localStorage.getItem("pending_username");
 
+                // fallback username if missing
+                if (!username) {
+                    username = user.email.split("@")[0];
+                }
 
-                    // Clear the saved username so it's not reused
+                console.log("INSERTING PROFILE WITH USERNAME:", username);
+
+                const { error: insertError } = await supabase
+                    .from("profiles")
+                    .insert([{
+                        id: user.id,
+                        username: username,
+                        email: user.email
+                    }]);
+
+                if (insertError) {
+                    console.log("PROFILE INSERT ERROR:", insertError);
+                } else {
+                    console.log("PROFILE INSERTED SUCCESSFULLY 🎉");
                     localStorage.removeItem("pending_username");
                 }
             }
@@ -127,6 +146,8 @@ if (loginForm) {
     });
 }
 
+
+// --- CHECK USERNAME ---
 async function isUsernameTaken(username) {
     const { data, error } = await supabase
         .from("profiles")
@@ -135,9 +156,9 @@ async function isUsernameTaken(username) {
         .maybeSingle();
 
     if (error) {
-        console.log(error.message);
-        return false; // fail-safe: don't block registration
+        console.log("USERNAME CHECK ERROR:", error);
+        return false;
     }
 
-    return data !== null; // if data exists → taken
+    return data !== null;
 }
