@@ -51,12 +51,12 @@ if (registerForm) {
         const usernameError = document.getElementById("username-error");
 
         // Clear old errors
-        emailError.style.display = "none";
         emailError.textContent = "";
-        usernameError.style.display = "none";
+        emailError.style.display = "none";
         usernameError.textContent = "";
+        usernameError.style.display = "none";
 
-        // Check if username exists
+        // Check username
         if (await isUsernameTaken(username)) {
             usernameError.textContent = "This username is already taken.";
             usernameError.style.display = "block";
@@ -70,18 +70,18 @@ if (registerForm) {
         const result = await registerUser(email, password);
 
         if (!result.success) {
+            // Show actual Supabase error
             emailError.textContent = result.message;
             emailError.style.display = "block";
-            return;
+            return; // STOP — no success message
         }
 
-        if (result.success) {
-            alert("We sent you a confirmation email.");
-            window.location.href = "login.html";
-        }
-
+        // SUCCESS ONLY IF Supabase says it succeeded
+        alert("We sent you a confirmation email. Please verify to log in.");
+        window.location.href = "login.html";
     });
 }
+
 
 
 // --- HANDLE LOGIN FORM ---
