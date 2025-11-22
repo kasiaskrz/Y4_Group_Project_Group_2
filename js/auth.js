@@ -13,13 +13,17 @@ async function registerUser(email, password) {
         password
     });
 
+    console.log("SIGNUP DEBUG:");
+    console.log("data:", data);
+    console.log("error:", error);
+
     if (error) {
-        console.log("SIGNUP ERROR:", error);
         return { success: false, message: error.message };
     }
 
     return { success: true };
 }
+
 
 
 // --- LOGIN ---
@@ -67,18 +71,17 @@ if (registerForm) {
         const result = await registerUser(email, password);
 
         if (!result.success) {
-            // Supabase duplicate email or invalid email error
             emailError.textContent = result.message;
             emailError.style.display = "block";
-            return;
+            console.log("BLOCKING SUCCESS - EMAIL ERROR:", result.message);
+            return; // <-- THIS STOPS EVERYTHING ✔
         }
 
-        // 3️⃣ Save username ONLY after successful signup
+        // success ONLY if no errors
         localStorage.setItem("pending_username", username);
-
-        // 4️⃣ Success message
         alert("We sent you a confirmation email. Please verify to log in.");
         window.location.href = "login.html";
+
     });
 }
 
