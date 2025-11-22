@@ -13,11 +13,19 @@ async function registerUser(email, password) {
         password
     });
 
-    console.log("SIGNUP DEBUG:");
-    console.log("data:", data);
-    console.log("error:", error);
+    console.log("SIGNUP DEBUG:", { data, error });
 
     if (error) {
+        // Friendly message for duplicate email
+        if (
+            error.message.includes("registered") ||
+            error.message.includes("exists") ||
+            error.code === "user_already_exists"
+        ) {
+            return { success: false, message: "This email is already registered. Please log in instead." };
+        }
+
+        // Default error
         return { success: false, message: error.message };
     }
 
@@ -68,6 +76,14 @@ if (registerForm) {
         }
 
         // 2️⃣ Try to register the user (Supabase will check duplicate emails)
+        // 2️⃣ Check email manually before signup
+        if (await isEmailTaken(email)) {
+            emailError.textContent = "This email is already registered. Please log in instead.";
+            emailError.style.display = "block";
+            return; // stop here
+        }
+
+        // 3️⃣ Try to register the user
         const result = await registerUser(email, password);
 
         if (!result.success) {
@@ -148,7 +164,7 @@ if (loginForm) {
                 }
             }
 
-            //window.location.href = "home.html";
+            window.location.href = "home.html";
         }
     });
 }
@@ -169,3 +185,15 @@ async function isUsernameTaken(username) {
 
     return data !== null;
 }
+
+async function isEmailTaken(email) {
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("email")
+        .eq("email", email)
+        .maybeSingle();
+
+    // If any entry exists → email is taken
+    return data !== null;
+}
+
