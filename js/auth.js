@@ -56,31 +56,32 @@ if (registerForm) {
         usernameError.textContent = "";
         usernameError.style.display = "none";
 
-        // Check username
+        // 1️⃣ Check username
         if (await isUsernameTaken(username)) {
             usernameError.textContent = "This username is already taken.";
             usernameError.style.display = "block";
             return;
         }
 
-        // Save username until login
-        localStorage.setItem("pending_username", username);
-
-        // Register the user
+        // 2️⃣ Try to register the user (Supabase will check duplicate emails)
         const result = await registerUser(email, password);
 
         if (!result.success) {
-            // Show actual Supabase error
+            // Supabase duplicate email or invalid email error
             emailError.textContent = result.message;
             emailError.style.display = "block";
-            return; // STOP — no success message
+            return;
         }
 
-        // SUCCESS ONLY IF Supabase says it succeeded
+        // 3️⃣ Save username ONLY after successful signup
+        localStorage.setItem("pending_username", username);
+
+        // 4️⃣ Success message
         alert("We sent you a confirmation email. Please verify to log in.");
         window.location.href = "login.html";
     });
 }
+
 
 
 
@@ -144,7 +145,7 @@ if (loginForm) {
                 }
             }
 
-            window.location.href = "home.html";
+            //window.location.href = "home.html";
         }
     });
 }
