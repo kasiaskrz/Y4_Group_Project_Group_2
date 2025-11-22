@@ -9,22 +9,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loginBtn = document.getElementById("btn-login");
   const registerBtn = document.getElementById("btn-register");
   const logoutBtn = document.getElementById("btn-logout");
+  const profileBtn = document.getElementById("btn-profile"); // NEW
 
   if (user) {
     // Logged in
-    loginBtn.style.display = "none";
-    registerBtn.style.display = "none";
-    logoutBtn.style.display = "block";
+    if (loginBtn) loginBtn.style.display = "none";
+    if (registerBtn) registerBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "block";
+    if (profileBtn) profileBtn.style.display = "block"; // SHOW PROFILE BUTTON
 
-    logoutBtn.addEventListener("click", async () => {
+    logoutBtn?.addEventListener("click", async () => {
       await supabase.auth.signOut();
       window.location.reload();
     });
 
   } else {
     // Not logged in
-    loginBtn.style.display = "block";
-    registerBtn.style.display = "block";
-    logoutBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "block";
+    if (registerBtn) registerBtn.style.display = "block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (profileBtn) profileBtn.style.display = "none"; // HIDE PROFILE BUTTON
   }
 });
+
