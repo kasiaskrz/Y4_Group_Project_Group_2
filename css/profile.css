@@ -1,0 +1,114 @@
+/* ============================
+   PROFILE PAGE STYLING
+============================ */
+
+.profile-container {
+    color: #d4faff;
+    padding-bottom: 4rem;
+    margin-top: 120px;
+}
+
+/* ---------- HEADER ---------- */
+
+.profile-header {
+    background: rgba(0, 20, 30, 0.8);
+    border: 2px solid #00f0ff;
+    box-shadow: 0 0 15px #00f0ff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.profile-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #0d1c24;
+    border: 3px solid #00e5ff;
+    margin-bottom: 1rem;
+}
+
+.profile-info .welcome-text {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+#profile-username {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+.playing-since {
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* ---------- CARDS ---------- */
+
+.profile-card {
+    background: rgba(0, 20, 30, 0.8);
+    border: 2px solid #00f0ff;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 0 12px #0096ad;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #00eaff;
+    text-shadow: 0 0 8px #00eaff;
+}
+
+/* ---------- TABLE ---------- */
+
+.table {
+    background: transparent;
+    color: #c8f9ff;
+    border-color: #008fa1;
+}
+
+.table thead th {
+    border-bottom: 2px solid #00eaff;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+.table tbody tr td {
+    background: rgba(0, 10, 16, 0.7);
+    border-bottom: 1px solid #003f45;
+}
+
+/* ---------- STATS ---------- */
+
+.stats-card .stats-box {
+    background: rgba(0, 15, 22, 0.6);
+    border: 1px solid #006b77;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.stats-card .stats-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.stats-card .stats-box h2 {
+    margin-top: 0.3rem;
+    font-size: 1.8rem;
+    color: #00ecff;
+    text-shadow: 0 0 6px #00eaff;
+}
+
+
