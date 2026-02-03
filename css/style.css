@@ -12,13 +12,19 @@ body {
 .hero {
   position: relative;
   height: 100vh;
-  background: url('../img/planet-bg.jpg') no-repeat center center/cover;
-  background-attachment: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   overflow: hidden;
+}
+
+/* Video background */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -2;
 }
 
 /* Add subtle dark overlay for contrast */
@@ -27,11 +33,14 @@ body {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
+  z-index: -1;
 }
 
+
+/* Text stays above everything */
 .hero-text {
+  z-index: 1;
   position: relative;
-  z-index: 2;
 }
 
 .hero-text h1 {
@@ -355,64 +364,102 @@ body {
     justify-content: center;
   }
 }
+
 /* ---------------- MEDIA PAGE ---------------- */
 
 .media-wrapper {
-    min-height: calc(100vh - 150px); /* ensures footer stays at bottom */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 200px;   /* space under navbar */
-    padding-bottom: 150px; /* space above footer */
+  min-height: calc(100vh - 150px);
+  /* ensures footer stays at bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 200px;
+  /* space under navbar */
+  padding-bottom: 150px;
+  /* space above footer */
 }
+
 .media-container {
-    width: 80%;
-    max-width: 1400px;
-    margin: 0 auto;
-    text-align: center;
-    color: #fff;
+  width: 80%;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
 }
 
 .media-title {
-    font-size: 3rem;
-    letter-spacing: 3px;
-    color: #00eaff;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  color: #00eaff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .media-subtitle {
-    color: #9fdde6;
-    margin-bottom: 50px;
-    font-size: 1.2rem;
+  color: #9fdde6;
+  margin-bottom: 50px;
+  font-size: 1.2rem;
 }
 
 .media-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
 }
 
 .media-card {
-    background: #00141a;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #00eaff55;
-    transition: transform .3s ease, box-shadow .3s ease;
+  background: #00141a;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00eaff55;
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .media-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #00eaffaa;
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00eaffaa;
 }
 
 .media-card img {
-    width: 100%;
-    border-radius: 8px;
+  width: 100%;
+  border-radius: 8px;
 }
 
 .media-caption {
-    margin-top: 12px;
-    color: #9fdde6;
-    font-size: 1rem;
+  margin-top: 12px;
+  color: #9fdde6;
+  font-size: 1rem;
+}
+
+.motion-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+
+  cursor: pointer;
+  z-index: 2;
+
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.motion-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Optional: when motion is OFF */
+.motion-btn.motion-off {
+  opacity: 0.7;
 }
