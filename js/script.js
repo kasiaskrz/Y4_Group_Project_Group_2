@@ -5,14 +5,14 @@ window.supabaseClient = window.supabase.createClient(
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const supabase = window.supabaseClient; 
+  const supabase = window.supabaseClient;
 
   const { data: { user } } = await supabase.auth.getUser();
 
   const loginBtn = document.getElementById("btn-login");
   const registerBtn = document.getElementById("btn-register");
   const logoutBtn = document.getElementById("btn-logout");
-  const profileBtn = document.getElementById("btn-profile"); 
+  const profileBtn = document.getElementById("btn-profile");
 
   if (user) {
     // Logged in
@@ -34,4 +34,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (profileBtn) profileBtn.style.display = "none"; // HIDE PROFILE BUTTON
   }
 });
+
+// HERO VIDEO MOTION TOGGLE (reset to start)
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("heroVideo");
+  const motionBtn = document.getElementById("toggleVideo");
+
+  if (!video || !motionBtn) return;
+
+  motionBtn.addEventListener("click", () => {
+    if (video.paused) {
+      video.currentTime = 0;
+      video.play();
+      motionBtn.textContent = "Motion: On";
+      motionBtn.classList.remove("motion-off");
+    } else {
+      video.pause();
+      video.currentTime = 0;
+      motionBtn.textContent = "Motion: Off";
+      motionBtn.classList.add("motion-off");
+    }
+  });
+});
+
+
 
