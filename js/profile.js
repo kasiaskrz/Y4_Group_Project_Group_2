@@ -38,29 +38,109 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("profile-username").textContent =
         profileData?.username ?? "(no username)";
 
-    // 4. Example static values (you’ll replace these with real game stats later)
-    document.getElementById("best-score").textContent = "04:22";
-    document.getElementById("global-rank").textContent = "#20";
-    document.getElementById("playtime").textContent = "2h 22m";
+    const formatMs = (ms) => {
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    };
 
-    // 5. Example levels (replace with Supabase later)
-    const dummyLevels = [
-        { level: "Level 1", date: "21/2/2021", time: "04:22" },
-        { level: "Level 2", date: "15/5/2022", time: "04:22" },
-        { level: "Level 3", date: "15/5/2022", time: "04:22" },
-        { level: "Level 4", date: "15/5/2022", time: "04:22" },
-        { level: "Level 5", date: "15/5/2022", time: "04:22" },
-        { level: "Level 6", date: "15/5/2022", time: "04:22" }
-    ];
+    const formatDate = (iso) => {
+        const d = new Date(iso);
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const yyyy = d.getFullYear();
+        return `${dd}/${mm}/${yyyy}`;
+    };
 
+    const formatPlaytime = (msTotal) => {
+        const totalSeconds = Math.floor(msTotal / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+        if (hours <= 0) return `${minutes}m`;
+        return `${hours}h ${minutes}m`;
+    };
+
+    // ======= BEST SCORE (FASTEST RUN FOR THIS USER) =======
+    const bestScoreEl = document.getElementById("best-score");
+    let bestRun = null;
+
+    if (bestScoreEl) {
+        const { data, error: bestError } = await supabase
+            .from("level_runs")
+            .select("time_ms")
+            .eq("user_id", user.id)
+            .order("time_ms", { ascending: true })
+            .limit(1)
+            .maybeSingle();
+
+        bestRun = data;
+
+        if (bestError || !bestRun) {
+            bestScoreEl.textContent = "--:--";
+        } else {
+            bestScoreEl.textContent = formatMs(bestRun.time_ms);
+        }
+    }
+
+    // ======= GLOBAL RANK (based on each user's BEST ever run) =======
+    const globalRankEl = document.getElementById("global-rank");
+    if (globalRankEl) {
+        if (!bestRun) {
+            globalRankEl.textContent = "--";
+        } else {
+            // Requires the SQL view: public.global_leaderboard (user_id, username, best_time_ms)
+            const { data: board, error: boardError } = await supabase
+                .from("global_leaderboard")
+                .select("user_id, best_time_ms")
+                .order("best_time_ms", { ascending: true });
+
+            if (boardError || !board) {
+                console.error("Error loading global leaderboard:", boardError);
+                globalRankEl.textContent = "--";
+            } else {
+                const idx = board.findIndex(r => r.user_id === user.id);
+                globalRankEl.textContent = idx === -1 ? "--" : `#${idx + 1}`;
+            }
+        }
+    }
+
+    // ======= LEVELS COMPLETED (ALL RUNS) + TOTAL PLAYTIME =======
     const tableBody = document.getElementById("levels-table-body");
-    dummyLevels.forEach(row => {
+    tableBody.innerHTML = ""; // clear old rows
+
+    const { data: runs, error: runsError } = await supabase
+        .from("level_runs")
+        .select("level_number, time_ms, created_at")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+    if (runsError) {
+        console.error("Error loading level runs:", runsError);
+        tableBody.innerHTML = `<tr><td colspan="3">Failed to load runs.</td></tr>`;
+        return;
+    }
+
+    if (!runs || runs.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="3">No levels completed yet.</td></tr>`;
+        const playtimeEl = document.getElementById("playtime");
+        if (playtimeEl) playtimeEl.textContent = "0m";
+        return;
+    }
+
+    // Total playtime = sum of all run times for this user
+    const totalMs = runs.reduce((sum, r) => sum + (r.time_ms || 0), 0);
+    const playtimeEl = document.getElementById("playtime");
+    if (playtimeEl) playtimeEl.textContent = formatPlaytime(totalMs);
+
+    runs.forEach(r => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-      <td>${row.level}</td>
-      <td>${row.date}</td>
-      <td>${row.time}</td>
-    `;
+          <td>Level ${r.level_number}</td>
+          <td>${formatDate(r.created_at)}</td>
+          <td>${formatMs(r.time_ms)}</td>
+        `;
         tableBody.appendChild(tr);
     });
 });
