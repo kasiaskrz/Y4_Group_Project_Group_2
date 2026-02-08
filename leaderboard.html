@@ -82,67 +82,8 @@
                 <th scope="col">TIME</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>#1</td>
-                <td><span class="player-name highlight-gold">Nora</span></td>
-                <td>Level 12</td>
-                <td>02:58</td>
-              </tr>
-              <tr>
-                <td>#2</td>
-                <td><span class="player-name highlight-silver">Jim</span></td>
-                <td>Level 12</td>
-                <td>03:04</td>
-              </tr>
-              <tr>
-                <td>#3</td>
-                <td><span class="player-name highlight-orange">Kate</span></td>
-                <td>Level 11</td>
-                <td>03:12</td>
-              </tr>
-              <tr>
-                <td>#4</td>
-                <td>Orion</td>
-                <td>Level 11</td>
-                <td>03:21</td>
-              </tr>
-              <tr>
-                <td>#5</td>
-                <td>Vex</td>
-                <td>Level 10</td>
-                <td>03:34</td>
-              </tr>
-              <tr>
-                <td>#6</td>
-                <td>Nova</td>
-                <td>Level 10</td>
-                <td>03:41</td>
-              </tr>
-              <tr>
-                <td>#7</td>
-                <td>Rae</td>
-                <td>Level 9</td>
-                <td>03:56</td>
-              </tr>
-              <tr>
-                <td>#8</td>
-                <td>Atlas</td>
-                <td>Level 9</td>
-                <td>04:02</td>
-              </tr>
-              <tr>
-                <td>#9</td>
-                <td>Zeph</td>
-                <td>Level 8</td>
-                <td>04:15</td>
-              </tr>
-              <tr>
-                <td>#10</td>
-                <td>Astra</td>
-                <td>Level 8</td>
-                <td>04:29</td>
-              </tr>
+            <tbody id="leaderboard-body">
+              <!-- rows will be injected by JS -->
             </tbody>
           </table>
         </div>
@@ -213,6 +154,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script type="module" src="/js/leaderboard.js"></script>
 
 </body>
 

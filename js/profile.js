@@ -1,8 +1,21 @@
 // --- PROFILE PAGE LOGIC ---
-
 document.addEventListener("DOMContentLoaded", async () => {
+    // Use the client you already create in script.js
+    const supabase = window.supabaseClient;
+
+    // If script.js didn't run / loaded too late / not included
+    if (!supabase) {
+        console.error("Supabase client not found. Make sure js/script.js loads before js/profile.js.");
+        return;
+    }
+
     // 1. Check if user is logged in
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+    if (userError) {
+        console.error("Error getting user:", userError);
+        return;
+    }
 
     if (!user) {
         window.location.href = "home.html";
@@ -21,11 +34,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    const username = profileData.username;
-
     // 3. Insert username into page
-    document.getElementById("profile-username").textContent = username;
-    document.getElementById("profile-username").textContent = username;
+    document.getElementById("profile-username").textContent =
+        profileData?.username ?? "(no username)";
 
     // 4. Example static values (you’ll replace these with real game stats later)
     document.getElementById("best-score").textContent = "04:22";
@@ -43,7 +54,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     ];
 
     const tableBody = document.getElementById("levels-table-body");
-
     dummyLevels.forEach(row => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
