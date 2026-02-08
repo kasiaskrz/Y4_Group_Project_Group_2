@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("PROFILE INSERT ERROR:", insertError);
           } else {
             localStorage.removeItem("pending_username");
-            console.log("PROFILE INSERTED ✅");
+            console.log("PROFILE INSERTED ");
           }
         }
 
