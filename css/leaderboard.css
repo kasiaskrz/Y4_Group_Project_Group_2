@@ -243,3 +243,37 @@ body {
   color: #d2e9ea;
 }
 
+.player-name {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.first-place {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: gold;
+}
+
+.second-place {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: silver;
+}
+
+.third-place {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: orange;
+}
+
+.row-first {
+    background-color: rgba(255, 215, 0, 0.08);
+}
+
+.row-second {
+    background-color: rgba(192, 192, 192, 0.08);
+}
+
+.row-third {
+    background-color: rgba(255, 165, 0, 0.08);
+}
