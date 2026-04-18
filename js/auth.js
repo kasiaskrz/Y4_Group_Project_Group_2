@@ -130,6 +130,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.location.href = "home.html";
       }
+       else {
+        const loginError = document.getElementById('login-error');
+        if (loginError) {
+            loginError.textContent = 'Invalid email or password.';
+            loginError.style.display = 'block';
+        }
+      }
+      
     });
   }
 
