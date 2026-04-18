@@ -148,4 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return data !== null;
   }
+
+  // --- LOGOUT ---
+  const logoutBtn = document.getElementById('btn-logout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.href = 'home.html';
+    });
+  }
 });
