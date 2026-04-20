@@ -10,6 +10,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/leaderboard.css" />
+  <link rel="stylesheet" href="chat\orbit-chat.css" />
+
 </head>
 
 <body>
@@ -149,6 +151,62 @@
       </div>
     </div>
   </footer>
+  <!-- ══════════════════════════════════════════════
+     ORBIT AI CHATBOT WIDGET
+
+══════════════════════════════════════════════ -->
+
+  <div id="lo-widget">
+    <div id="lo-panel">
+      <div id="lo-header">
+        <div class="lo-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60c4ff" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a7 7 0 0 1 7 7" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+        </div>
+        <div class="lo-header-text">
+          <div class="lo-header-name">ORBIT — AI</div>
+          <div class="lo-header-status">
+            <span class="lo-status-dot"></span>Station systems online
+          </div>
+        </div>
+      </div>
+      <div id="lo-messages"></div>
+      <div id="lo-suggestions">
+        <button class="lo-chip" onclick="sendChip(this)">How do I start?</button>
+        <button class="lo-chip" onclick="sendChip(this)">How does combat work?</button>
+        <button class="lo-chip" onclick="sendChip(this)">What is Wavemode?</button>
+        <button class="lo-chip" onclick="sendChip(this)">How is score calculated?</button>
+      </div>
+      <div id="lo-footer">
+        <textarea id="lo-input" rows="1" placeholder="Ask ORBIT anything…" onkeydown="orbitHandleKey(event)"
+          oninput="orbitResize(this)"></textarea>
+        <button id="lo-send" onclick="orbitSend()" title="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button id="lo-toggle" onclick="toggleWidget()" title="Chat with ORBIT">
+      <div id="lo-dot"></div>
+      <svg class="icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#80d8ff" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+      <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#80d8ff" stroke-width="2.5"
+        stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+  <script src="chat/orbit-chat.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
