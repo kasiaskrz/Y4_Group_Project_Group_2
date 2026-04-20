@@ -82,123 +82,120 @@ Completion times are saved for logged-in players and shown on the website leader
 
 // ── State ──────────────────────────────────────
 const orbitHistory = [];
-let orbitLoading  = false;
-let orbitGreeted  = false;
+let orbitLoading = false;
+let orbitGreeted = false;
 
 // ── DOM helpers ────────────────────────────────
 function orbitEl(id) { return document.getElementById(id); }
 
 function orbitAddMessage(role, text) {
-  const messages = orbitEl('lo-messages');
-  const div = document.createElement('div');
-  div.className = `lo-msg ${role}`;
-  const bubble = document.createElement('div');
-  bubble.className = 'lo-bubble';
-  bubble.textContent = text;
-  div.appendChild(bubble);
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+    const messages = orbitEl('lo-messages');
+    const div = document.createElement('div');
+    div.className = `lo-msg ${role}`;
+    const bubble = document.createElement('div');
+    bubble.className = 'lo-bubble';
+    bubble.textContent = text;
+    div.appendChild(bubble);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
 }
 
 function orbitShowTyping() {
-  const messages = orbitEl('lo-messages');
-  const div = document.createElement('div');
-  div.className = 'lo-msg bot';
-  div.id = 'lo-typing';
-  div.innerHTML = '<div class="lo-bubble lo-typing"><span></span><span></span><span></span></div>';
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+    const messages = orbitEl('lo-messages');
+    const div = document.createElement('div');
+    div.className = 'lo-msg bot';
+    div.id = 'lo-typing';
+    div.innerHTML = '<div class="lo-bubble lo-typing"><span></span><span></span><span></span></div>';
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
 }
 
 function orbitHideTyping() {
-  const t = orbitEl('lo-typing');
-  if (t) t.remove();
+    const t = orbitEl('lo-typing');
+    if (t) t.remove();
 }
 
 // ── Toggle ─────────────────────────────────────
 function toggleWidget() {
-  const widget = orbitEl('lo-widget');
-  widget.classList.toggle('open');
+    const widget = orbitEl('lo-widget');
+    widget.classList.toggle('open');
 
-  if (widget.classList.contains('open') && !orbitGreeted) {
-    orbitGreeted = true;
-    setTimeout(() => {
-      orbitAddMessage('bot', "Signal received. I'm ORBIT, the station AI. I'm back online and ready to help you navigate Lost Orbit. What do you need, Commander?");
-    }, 400);
-  }
+    if (widget.classList.contains('open') && !orbitGreeted) {
+        orbitGreeted = true;
+        setTimeout(() => {
+            orbitAddMessage('bot', "Signal received. I'm ORBIT, the station AI. I'm back online and ready to help you navigate Lost Orbit. What do you need, Commander?");
+        }, 400);
+    }
 
-  if (widget.classList.contains('open')) {
-    orbitEl('lo-input').focus();
-  }
+    if (widget.classList.contains('open')) {
+        orbitEl('lo-input').focus();
+    }
 }
 
 // ── Send message ───────────────────────────────
 async function orbitSend() {
-  const input = orbitEl('lo-input');
-  const text  = input.value.trim();
-  if (!text || orbitLoading) return;
+    const input = orbitEl('lo-input');
+    const text = input.value.trim();
+    if (!text || orbitLoading) return;
 
-  // Hide chips after first message
-  orbitEl('lo-suggestions').style.display = 'none';
+    // Hide chips after first message
+    orbitEl('lo-suggestions').style.display = 'none';
 
-  input.value = '';
-  input.style.height = 'auto';
-  orbitAddMessage('user', text);
-  orbitHistory.push({ role: 'user', content: text });
+    input.value = '';
+    input.style.height = 'auto';
+    orbitAddMessage('user', text);
+    orbitHistory.push({ role: 'user', content: text });
 
-  orbitLoading = true;
-  orbitEl('lo-send').disabled = true;
-  orbitShowTyping();
+    orbitLoading = true;
+    orbitEl('lo-send').disabled = true;
+    orbitShowTyping();
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ORBIT_API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        system: ORBIT_SYSTEM,
-        messages: orbitHistory
-      })
-    });
+    try {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-5',
+                max_tokens: 400,
+                system: ORBIT_SYSTEM,
+                messages: orbitHistory
+            })
+        });
 
-    const data  = await res.json();
-    const reply = data.content?.[0]?.text || 'Transmission lost. Please try again.';
-    orbitHistory.push({ role: 'assistant', content: reply });
+        const data = await res.json();
+        const reply = data.content?.[0]?.text || 'Transmission lost. Please try again.';
+        orbitHistory.push({ role: 'assistant', content: reply });
 
-    orbitHideTyping();
-    orbitAddMessage('bot', reply);
-  } catch (e) {
-    orbitHideTyping();
-    orbitAddMessage('bot', 'Signal lost. Check your connection and try again.');
-  }
+        orbitHideTyping();
+        orbitAddMessage('bot', reply);
+    } catch (e) {
+        orbitHideTyping();
+        orbitAddMessage('bot', 'Signal lost. Check your connection and try again.');
+    }
 
-  orbitLoading = false;
-  orbitEl('lo-send').disabled = false;
-  orbitEl('lo-input').focus();
+    orbitLoading = false;
+    orbitEl('lo-send').disabled = false;
+    orbitEl('lo-input').focus();
 }
 
 // ── Chip click ─────────────────────────────────
 function sendChip(btn) {
-  orbitEl('lo-input').value = btn.textContent;
-  orbitSend();
+    orbitEl('lo-input').value = btn.textContent;
+    orbitSend();
 }
 
 // ── Key handler ────────────────────────────────
 function orbitHandleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    orbitSend();
-  }
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        orbitSend();
+    }
 }
 
 // ── Auto-resize textarea ───────────────────────
 function orbitResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
 }
